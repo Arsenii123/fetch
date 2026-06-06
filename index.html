@@ -1,0 +1,96 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="description" content="">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+  <meta property="og:image:alt" content="">
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.png">
+
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+
+  <!-- Add your site or application content here -->
+  <p>Hello world! This is HTML5 Boilerplate.</p>
+  <script src="js/app.js"></script>
+  <img src="" alt="picture" id="current">
+  <button>next</button>
+  <button>pervious</button>
+  <script>
+    let pictures=[];
+    let index=1;
+    let actions=document.getElementsByTagName("button");
+    let img =document.getElementById('current');
+    const url="https://dog.ceo/api/breeds/image/random";
+    window.onload=(()=>{
+      getImage();
+
+    });
+
+    actions[0].addEventListener("click",()=>{
+      index++;
+      if(index<=pictures.length-1 && index!==0){
+        show();
+      }
+      else{
+        getImage();
+
+
+      }
+
+    });
+    actions[1].addEventListener("click",()=>{
+
+      if(index>0 ){
+        index--;
+        show();
+      }
+    });
+    function getImage(){
+      return fetch(url)
+        .then(res=>
+          res.json()
+
+        )
+        .then(data=>{
+          setTimeout(()=>{
+            if(data.status==="success"){
+
+              img.setAttribute('src',data.message);
+              let a =data.message+"";
+              pictures.push(a);
+
+
+            }
+          },1000);
+
+
+
+        })
+        .catch(err=>{
+          console.log(err);
+        });
+    }
+    function show(){
+      img.setAttribute('src',pictures[index]);
+
+    }
+
+  </script>
+</body>
+
+</html>
